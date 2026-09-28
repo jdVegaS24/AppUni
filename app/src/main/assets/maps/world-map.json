@@ -1,0 +1,17 @@
+{
+  "id": "world-map",
+  "imageFile": "maps/world-map.png",
+  "physicalWidthMeters": 0.4,
+  "imagePixelWidth": 1200,
+  "imagePixelHeight": 600,
+  "projection": "equirectangular",
+  "north": "top",
+  "west": -180.0,
+  "east": 180.0,
+  "south": -90.0,
+  "northLat": 90.0,
+  "contentLeft": 0.0,
+  "contentTop": 0.0,
+  "contentRight": 1.0,
+  "contentBottom": 1.0
+}

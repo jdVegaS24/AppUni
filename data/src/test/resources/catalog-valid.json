@@ -1,0 +1,22 @@
+{
+  "host": {
+    "id": "host-university",
+    "name": "Host University"
+  },
+  "partners": [
+    {
+      "id": "northern-spain",
+      "name": "Northern Spain University",
+      "city": "Salamanca",
+      "country": "Spain",
+      "latitude": 40.965,
+      "longitude": -5.664,
+      "logoFile": "northern-spain.png",
+      "website": "https://example.com/northern-spain",
+      "agreement": {
+        "type": "Student exchange",
+        "description": "Students may study for one term in Salamanca."
+      }
+    }
+  ]
+}

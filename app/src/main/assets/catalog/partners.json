@@ -1,0 +1,104 @@
+{
+  "host": {
+    "id": "host-university",
+    "name": "Host University"
+  },
+  "partners": [
+    {
+      "id": "northern-spain",
+      "name": "Northern Spain University",
+      "city": "Salamanca",
+      "country": "Spain",
+      "latitude": 40.965,
+      "longitude": -5.664,
+      "logoFile": "northern-spain.png",
+      "website": "https://example.com/northern-spain",
+      "agreement": {
+        "type": "Student exchange",
+        "description": "Students may study for one term in Salamanca."
+      }
+    },
+    {
+      "id": "coastal-spain",
+      "name": "Coastal Spain University",
+      "city": "Barcelona",
+      "country": "Spain",
+      "latitude": 41.387,
+      "longitude": 2.168,
+      "logoFile": "coastal-spain.png",
+      "website": "https://example.com/coastal-spain",
+      "agreement": {
+        "type": "Research",
+        "description": "Joint research visits with the Barcelona faculty."
+      }
+    },
+    {
+      "id": "central-madrid",
+      "name": "Central Madrid University",
+      "city": "Madrid",
+      "country": "Spain",
+      "latitude": 40.42,
+      "longitude": -3.703,
+      "logoFile": "central-madrid.png",
+      "website": "https://example.com/central-madrid",
+      "agreement": {
+        "type": "Student exchange",
+        "description": "Undergraduate exchange in central Madrid."
+      }
+    },
+    {
+      "id": "riverside-madrid",
+      "name": "Riverside Madrid University",
+      "city": "Madrid",
+      "country": "Spain",
+      "latitude": 40.421,
+      "longitude": -3.702,
+      "logoFile": "riverside-madrid.png",
+      "website": "https://example.com/riverside-madrid",
+      "agreement": {
+        "type": "Faculty visit",
+        "description": "Short faculty visits beside the Manzanares."
+      }
+    },
+    {
+      "id": "lisbon-partner",
+      "name": "Lisbon Partner University",
+      "city": "Lisbon",
+      "country": "Portugal",
+      "latitude": 38.722,
+      "longitude": -9.139,
+      "logoFile": "lisbon-partner.png",
+      "website": "https://example.com/lisbon-partner",
+      "agreement": {
+        "type": "Student exchange",
+        "description": "One semester of study in Lisbon."
+      }
+    },
+    {
+      "id": "andean-partner",
+      "name": "Andean Partner University",
+      "city": "Quito",
+      "country": "Ecuador",
+      "latitude": -0.181,
+      "longitude": -78.468,
+      "website": "https://example.com/andean-partner",
+      "agreement": {
+        "type": "Research",
+        "description": "Shared field research in the Andes."
+      }
+    },
+    {
+      "id": "prairie-partner",
+      "name": "Prairie Partner University",
+      "city": "Winnipeg",
+      "country": "Canada",
+      "latitude": 49.895,
+      "longitude": -97.138,
+      "logoFile": "prairie-partner.png",
+      "agreement": {
+        "type": "Faculty visit",
+        "description": "Staff exchanges with no public website in this sample."
+      }
+    }
+  ]
+}
