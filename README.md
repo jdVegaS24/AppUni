@@ -115,3 +115,111 @@ En `specs/001-explore-agreements/tasks.md` siguen abiertas:
 | `docs/Tutorial_SDD_AppUni_Android_Studio_Java.docx` | Tutorial para quien no participó en el desarrollo. |
 
 El comportamiento se especificó primero. Una implementación anterior usó Kotlin y Jetpack Compose. La aplicación actual es Java con vistas y Material Components. Los scripts `build.gradle.kts` se mantuvieron. Eso no significa que las pantallas sigan escritas en Kotlin.
+
+## Descargar el ZIP y abrirlo en Eclipse
+
+AppUni es una aplicación de teléfono. El código está en Java, pero no es un programa de escritorio. En Eclipse no aparece una ventana con el mapa del mundo. El botón **Run As → Java Application** no sirve: no hay un `main` que dibuje la aplicación en el computador.
+
+Con Eclipse se puede leer el código, modificarlo y lanzar las pruebas de lógica. Para instalar la aplicación en un teléfono hace falta el Android SDK. La forma más simple de conseguir ese SDK es instalar Android Studio una vez, aunque después se edite el código en Eclipse.
+
+### 1. Descargar
+
+1. Abre https://github.com/jdVegaS24/AppUni
+2. Pulsa el botón verde **Code**.
+3. Pulsa **Download ZIP**.
+4. El archivo descargado se llama `AppUni-main.zip`. Suele quedar en la carpeta Descargas.
+
+### 2. Descomprimir
+
+1. Entra en Descargas.
+2. Haz clic derecho sobre `AppUni-main.zip`.
+3. Elige **Extraer todo**.
+4. Pulsa **Extraer**.
+5. Se crea una carpeta llamada `AppUni-main`. Ábrela.
+6. Dentro deben verse, entre otras, estas cosas: `app`, `domain`, `ar`, `settings.gradle.kts`, `gradlew.bat` y este `README.md`. Si solo ves otra carpeta, entra en ella hasta encontrar `settings.gradle.kts`. Esa es la carpeta del proyecto. No abras solo `app`.
+
+### 3. Instalar Java 17
+
+1. Si ya tienes Java 17, sáltalo. En PowerShell, `java -version` debe decir versión 17.
+2. Si no, instala un JDK 17, por ejemplo Temurin 17, desde https://adoptium.net/
+3. Vuelve a abrir PowerShell y comprueba `java -version`.
+
+Eclipse tiene que usar ese JDK. En Eclipse: **Window → Preferences → Java → Installed JREs → Add… → Standard VM** y elige la carpeta del JDK 17. Márcalo como predeterminado.
+
+### 4. Importar el proyecto en Eclipse
+
+Hace falta Eclipse IDE for Java Developers, no un editor de texto. La importación usa Gradle, que ya viene en la carpeta (`gradlew.bat`). No hace falta instalar Gradle aparte.
+
+1. Abre Eclipse.
+2. **File → Import…**
+3. Abre la carpeta **Gradle**.
+4. Elige **Existing Gradle Project**. Pulsa **Next**.
+5. En **Project root directory** pulsa **Browse…** y elige la carpeta descomprimida `AppUni-main`, la que contiene `settings.gradle.kts`.
+6. Pulsa **Finish**.
+7. Espera. La primera vez Gradle descarga bibliotecas. Puede tardar varios minutos y pide Internet.
+8. Si Eclipse pide confiar en el proyecto de Gradle, acepta.
+
+Al terminar deben aparecer varios proyectos: `app`, `domain`, `coordinates`, `data` y `ar`. El código Java de cada uno está en `src/main/java`.
+
+Si la importación Gradle no aparece en el menú, instala en Eclipse el componente Buildship: **Help → Eclipse Marketplace…**, busca **Buildship Gradle Integration** e instálalo. Reinicia Eclipse y repite la importación.
+
+### 5. Ver el código
+
+| Quieres ver | En Eclipse abre |
+| --- | --- |
+| La pantalla principal | `app` → `src/main/java` → `appuni.explore.ui` → `MainActivity.java` |
+| Las reglas | `domain` → `src/main/java` → `appuni.explore.domain` |
+| El cálculo del mapa | `coordinates` → `src/main/java` → `appuni.explore.coordinates` → `GeoToImage.java` |
+| La lectura del catálogo | `data` → `src/main/java` → `appuni.explore.data` → `CatalogParser.java` |
+| La cámara y los marcadores | `ar` → `src/main/java` → `appuni.explore.ar` |
+
+### 6. Ejecutar las pruebas que no necesitan teléfono
+
+Estas pruebas comprueban números y reglas. No abren la cámara.
+
+1. En el proyecto `coordinates` o `domain`, entra en `src/test/java`.
+2. Haz clic derecho sobre una clase que termine en `Test`, por ejemplo `GeoToImageTest`.
+3. Elige **Run As → JUnit Test**.
+4. Abajo, la vista **JUnit** muestra una barra verde si pasó.
+
+Si Eclipse dice que no encuentra JUnit, clic derecho sobre el proyecto Gradle → **Gradle → Refresh Gradle Project** y vuelve a intentarlo.
+
+`CatalogParserTest`, dentro de `data`, sí necesita el SDK de Android. Si esa prueba falla porque no existe el SDK, no es un fallo de la lógica del catálogo: falta la herramienta de Android descrita en el paso siguiente.
+
+### 7. Generar la aplicación para el teléfono
+
+Eclipse no instala el Android SDK por sí solo. Sin ese SDK, `app`, `data` y `ar` no terminan de compilar.
+
+1. Instala Android Studio desde https://developer.android.com/studio aunque vayas a seguir editando en Eclipse.
+2. Ábrelo una vez y deja que instale el Android SDK. Puede ser la misma carpeta `AppUni-main`.
+3. Cierra Android Studio si solo lo usaste para el SDK.
+4. En la carpeta descomprimida, la primera compilación crea `local.properties` con la ruta del SDK. Si no existe, créalo con un editor de texto. Una línea, con tu ruta real:
+
+```text
+sdk.dir=C:\\Users\\TU_USUARIO\\AppData\\Local\\Android\\Sdk
+```
+
+5. En Eclipse puedes lanzar la construcción sin salir del IDE: clic derecho sobre el proyecto `app` → **Run As → Gradle Build…** → en **Gradle Tasks** escribe `assembleDebug` → **Run**. También vale abrir PowerShell en `AppUni-main` y ejecutar:
+
+```text
+.\gradlew.bat :app:assembleDebug
+```
+
+6. Si termina bien, el archivo instalable está en:
+
+```text
+AppUni-main\app\build\outputs\apk\debug\app-debug.apk
+```
+
+7. Copia ese archivo al teléfono, ábrelo e instálalo. Android pedirá permiso para instalar aplicaciones de este origen. El paquete se llama `appuni.explore`.
+8. Para ver los marcadores, el teléfono necesita Google Play Services for AR y el mapa impreso a 40 cm de ancho. En el computador no se ve esa cámara.
+
+### 8. Errores frecuentes
+
+| Lo que pasa | Qué hacer |
+| --- | --- |
+| Eclipse abre una carpeta vacía o sin código | Elegiste una carpeta de más afuera o de más adentro. Vuelve a importar la que contiene `settings.gradle.kts`. |
+| **Run As → Java Application** no hace nada o da error | Es normal. Esta aplicación no se ejecuta así. Usa las pruebas JUnit o genera el APK. |
+| Gradle no descarga nada | Revisa el Internet y un proxy. La primera sincronización no funciona sin red. |
+| No existe `local.properties` o dice que falta el SDK | Completa el paso 7. Eclipse no trae el SDK de Android. |
+| El teléfono dice que la aplicación no puede ejecutar la experiencia del mapa | El teléfono no tiene soporte de AR. La aplicación debe quedarse abierta y explicarlo. No es el mismo fallo que un error de compilación. |
